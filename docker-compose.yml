@@ -2,7 +2,9 @@ version: "3"
 
 volumes:
   grafana-data:
-  prometheus-data:    
+  prometheus-data:   
+  loki-data:
+
 
 services:
   grafana:
