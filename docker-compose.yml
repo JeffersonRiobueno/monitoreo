@@ -87,5 +87,24 @@ services:
         loki-url: "http://localhost:3100/loki/api/v1/push"
     ports:
     - 8070:8080
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: unless-stopped
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"  
+    ports:
+    - 8071:80
 
+  promtail:
+    image: grafana/promtail:2.3.0
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+    - /var/log/:/var/log/:ro
+    - ./promtail.yml:/etc/promtail/promtail.yml
+    - promtail-data:/tmp
+    command: -config.file=/etc/promtail/promtail.yml
   
