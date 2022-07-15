@@ -1,11 +1,4 @@
 version: "3"
-
-volumes:
-  grafana-data:
-  prometheus-data:   
-  loki-data:
-
-
 services:
   grafana:
     image: grafana/grafana:8.0.6
@@ -108,3 +101,9 @@ services:
     - promtail-data:/tmp
     command: -config.file=/etc/promtail/promtail.yml
   
+
+volumes:
+  grafana-data:
+  prometheus-data:   
+  loki-data:
+  promtail-data:
