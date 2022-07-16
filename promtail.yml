@@ -16,5 +16,5 @@ scrape_configs:
       - localhost
     labels:
       job: TEST_NIUBIZ
-      __path__: /home/admin/QA/TEST_NIUBIZ/logs/2022/07/07/*.log
+      __path__: /home/admin/QA/TEST_NIUBIZ/logs/2022/07/1*/*.log
       
