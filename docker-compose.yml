@@ -29,12 +29,11 @@ services:
     container_name: loki
     restart: unless-stopped
     volumes:
-    - ./loki-config.yml:/mnt/config/loki-config.yml
+    - ./loki-config.yml:/etc/loki/local-config.yml
     - loki-data:/loki
     ports:
     - 3100:3100
-    command: 
-    - '-config.file=/mnt/config/loki-config.yml'
+    command: -config.file=/etc/loki/local-config.yaml
 
 #  node_exporter:
 #    image: quay.io/prometheus/node-exporter:latest
