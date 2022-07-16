@@ -82,11 +82,11 @@ services:
 
 
   promtail:
-    image: grafana/promtail:2.3.0
+    image: grafana/promtail:2.6.0
     container_name: promtail
     restart: unless-stopped
     volumes:
-    - /var/log/:/var/log/:ro
+    - /home/admin/QA/TEST_NIUBIZ/logs/2022/07/15:/var/log
     - ./promtail.yml:/etc/promtail/promtail.yml
     - promtail-data:/tmp
     command: -config.file=/etc/promtail/promtail.yml
