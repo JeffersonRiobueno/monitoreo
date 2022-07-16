@@ -10,11 +10,11 @@ clients:
 
 scrape_configs:
 # Logs sistema
-- job_name: L-QA
+- job_name: QA-93
   static_configs:
   - targets:
       - localhost
     labels:
       job: TEST_NIUBIZ
-      __path__: /home/admin/QA/TEST_NIUBIZ/logs/2022/07/1*/*.log
+      __path__: /home/admin/QA/TEST_NIUBIZ/logs/2022/07/15/*
       
