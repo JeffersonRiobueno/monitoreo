@@ -6,13 +6,13 @@ services:
     restart: unless-stopped
     volumes:
     - grafana-data:/var/lib/grafana
-    - certs:/etc/letsencrypt/certs:ro
+    - certs:/etc/nginx/certs:ro
     environment:
     - VIRTUAL_HOST=${_DOMAIN}
     - LETSENCRYPT_HOST=${_DOMAIN}
     - LETSENCRYPT_EMAIL=${_EMAIL}
-    - GF_SERVER_CERT_FILE=/etc/letsencrypt/certs/${_DOMAIN}.crt # adjust to match your domain name
-    - GF_SERVER_CERT_KEY=/etc/letsencrypt/certs/${_DOMAIN}.key # adjust to match your domain name
+    - GF_SERVER_CERT_FILE=/etc/nginx/certs/${_DOMAIN}.crt # adjust to match your domain name
+    - GF_SERVER_CERT_KEY=/etc/nginx/certs/${_DOMAIN}.key # adjust to match your domain name
     - GF_SERVER_PROTOCOL=https
 
     - GF_SERVER_DOMAIN=${_DOMAIN} # adjust to match your domain name
