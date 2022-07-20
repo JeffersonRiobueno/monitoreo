@@ -5,7 +5,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     volumes:
-    - grafana-data:/var/lib/grafana
+    - ./grafana-data:/var/lib/grafana
     - certs:/etc/nginx/certs:ro
     environment:
     - VIRTUAL_HOST=${_DOMAIN_GRAFA}
@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
     volumes:
     - ./local-config.yml:/etc/loki/local-config.yml
-    - loki-data:/loki
+    - ./loki-data:/loki
     environment:
     - VIRTUAL_HOST=${_DOMAIN_LOKI}
     - LETSENCRYPT_HOST=${_DOMAIN_LOKI}
@@ -60,8 +60,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
-  grafana-data:
-  loki-data:
   vhostd:
   certs:
   html:
