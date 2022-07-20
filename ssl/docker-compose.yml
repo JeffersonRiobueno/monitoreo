@@ -8,11 +8,11 @@ services:
     - grafana-data:/var/lib/grafana
     - certs:/etc/nginx/certs:ro
     environment:
-    - VIRTUAL_HOST=${_DOMAIN}
-    - LETSENCRYPT_HOST=${_DOMAIN}
+    - VIRTUAL_HOST=${_DOMAIN_GRAFA}
+    - LETSENCRYPT_HOST=${_DOMAIN_GRAFA}
     - LETSENCRYPT_EMAIL=${_EMAIL}
-    #- GF_SERVER_CERT_FILE=/etc/nginx/certs/${_DOMAIN}.crt # adjust to match your domain name
-    #- GF_SERVER_CERT_KEY=/etc/nginx/certs/${_DOMAIN}.key # adjust to match your domain name
+    #- GF_SERVER_CERT_FILE=/etc/nginx/certs/${_DOMAIN_GRAFA}.crt # adjust to match your domain name
+    #- GF_SERVER_CERT_KEY=/etc/nginx/certs/${_DOMAIN_GRAFA}.key # adjust to match your domain name
     #- GF_SERVER_PROTOCOL=https
 
     ports:
