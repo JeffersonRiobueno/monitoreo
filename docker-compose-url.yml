@@ -1,0 +1,62 @@
+version: "3"
+services:
+  grafana:
+    image: grafana/grafana:8.0.6
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+    - grafana-data:/var/lib/grafana
+    environment:
+    - VIRTUAL_HOST=${_DOMAIN}
+    - LETSENCRYPT_HOST=${_DOMAIN}
+    - LETSENCRYPT_EMAIL=${_EMAIL}
+    ports:
+    - 3000:3000
+
+  loki:
+    image: grafana/loki:2.6.0
+    container_name: loki
+    restart: unless-stopped
+    volumes:
+    - ./local-config.yml:/etc/loki/local-config.yml
+    - loki-data:/loki
+    environment:
+    - VIRTUAL_HOST=${_DOMAIN}
+    - LETSENCRYPT_HOST=${_DOMAIN}
+    - LETSENCRYPT_EMAIL=${_EMAIL}
+    ports:
+    - 3100:3100
+    command: -config.file=/etc/loki/local-config.yaml
+  
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - ./nginx-custom.conf:/etc/nginx/conf.d/custom.conf:ro
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  grafana-data:
+  loki-data:
+  certs:
+  vhostd:
+  html:
