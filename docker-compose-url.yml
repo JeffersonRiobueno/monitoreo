@@ -6,10 +6,18 @@ services:
     restart: unless-stopped
     volumes:
     - grafana-data:/var/lib/grafana
+    - ./letsencrypt/certs:/etc/letsencrypt/certs:ro
     environment:
     - VIRTUAL_HOST=${_DOMAIN}
     - LETSENCRYPT_HOST=${_DOMAIN}
     - LETSENCRYPT_EMAIL=${_EMAIL}
+    - GF_SERVER_CERT_FILE=/etc/letsencrypt/certs/${_DOMAIN}.crt # adjust to match your domain name
+    - GF_SERVER_CERT_KEY=/etc/letsencrypt/certs/${_DOMAIN}.key # adjust to match your domain name
+    - GF_SERVER_PROTOCOL=https
+
+    - GF_SERVER_DOMAIN=${_DOMAIN} # adjust to match your domain name
+    - GF_SECURITY_ADMIN_USER=SECURE_USERNAME # adjust to create Grafana admin account
+    - GF_SECURITY_ADMIN_PASSWORD=SECURE_PASS # adjust to set Grafana admin password
     ports:
     - 3000:3000
 
