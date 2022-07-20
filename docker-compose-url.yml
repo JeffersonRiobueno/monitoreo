@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     volumes:
     - grafana-data:/var/lib/grafana
-    - ./letsencrypt/certs:/etc/letsencrypt/certs:ro
+    - certs:/etc/letsencrypt/certs:ro
     environment:
     - VIRTUAL_HOST=${_DOMAIN}
     - LETSENCRYPT_HOST=${_DOMAIN}
