@@ -47,6 +47,19 @@ schema_config:
 ruler:
   alertmanager_url: http://localhost:9093
 
+storage_config:
+  boltdb:
+    directory: /data/loki/index
+
+  filesystem:
+    directory: /data/loki/chunks
+
+  boltdb_shipper:
+    active_index_directory: /data/loki/boltdb-shipper-active
+    cache_location: /data/loki/boltdb-shipper-cache
+    cache_ttl: 72h         # Can be increased for faster performance over longer query periods, uses more disk space
+    shared_store: filesystem
+
 compactor:
   working_directory: /data/loki/boltdb-shipper-compactor
   shared_store: filesystem
@@ -142,4 +155,5 @@ query_scheduler:
     max_recv_msg_size: 33554432
 
 query_range:
+  parallelise_shardable_queries: false
   split_queries_by_interval: 0 # 720h # 30d
