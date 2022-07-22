@@ -58,4 +58,5 @@ ruler:
       store: inmemory
   enable_api: true
 
-
+query_range:
+  parallelise_shardable_queries: false
